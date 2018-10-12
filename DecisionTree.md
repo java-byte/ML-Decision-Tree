@@ -72,3 +72,37 @@ Lets try querying questions and its outputs.
     Question(1, 3) ## Is diameter >= 3?
     Question(0, "Green") ## Is color == Green?
     
+Now we will try to Partition the dataset based on asked question. Data will be divided into two classes at each steps.
+
+      def partition(rows, question):
+        """Partitions a dataset.
+
+        For each row in the dataset, check if it matches the question. If
+        so, add it to 'true rows', otherwise, add it to 'false rows'.
+        """
+        true_rows, false_rows = [], []
+        for row in rows:
+            if question.match(row):
+                true_rows.append(row)
+            else:
+                false_rows.append(row)
+        return true_rows, false_rows
+        
+       # Let's partition the training data based on whether rows are Red.
+       true_rows, false_rows = partition(training_data, Question(0, 'Red'))
+       # This will contain all the 'Red' rows.
+       true_rows ## [['Red', 1, 'Grape'], ['Red', 1, 'Grape']]
+       false_rows ## [['Green', 3, 'Apple'], ['Yellow', 3, 'Apple'], ['Yellow', 3, 'Lemon']]
+       
+Algorithm for constructing decision tree usually works top-down, by choosing a variable at each step that `best` splits the set of items. Different algorithms use different metrices for measuring `best`.
+
+### Gini Impurity
+
+First let's understand the meaning of **Pure** and **Impure**.
+
+#### Pure
+Pure means, in a selected sample of dataset all data belongs to same class (PURE).
+
+#### Impure
+Impure means, data is mixture of different classes.
+
