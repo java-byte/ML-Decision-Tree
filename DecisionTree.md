@@ -149,5 +149,97 @@ If our dataset is `Pure` then likelihood of incorrect classification is 0. If ou
         #######
            
 
+ ## Steps
  
+ * Get list of rows which are taken into consideration for making decision tree (recursively at each nodes).
+ * Calculate uncertanity of our dataset or Gini impurity or how much our data is mixed up etc.
+     * Generate list of all question which needs to be asked at that node.
+     * Partition rows into `True rows` and `False rows` based on each question asked.
+     * Calculate information gain based gini impurity and partition of data.
+     * Update highest information gain based on each question asked.
+     * Update best question based on information gain (higher information gain).
+ * Divide the node on best question.
 
+**Code for Above Steps**
+
+     def find_best_split(rows):
+        """Find the best question to ask by iterating over every feature / value
+        and calculating the information gain."""
+        best_gain = 0  # keep track of the best information gain
+        best_question = None  # keep train of the feature / value that produced it
+        current_uncertainty = gini(rows)
+        n_features = len(rows[0]) - 1  # number of columns
+
+        for col in range(n_features):  # for each feature
+
+            values = set([row[col] for row in rows])  # unique values in the column
+
+            for val in values:  # for each value
+
+                question = Question(col, val)
+
+                # try splitting the dataset
+                true_rows, false_rows = partition(rows, question)
+
+                # Skip this split if it doesn't divide the
+                # dataset.
+                if len(true_rows) == 0 or len(false_rows) == 0:
+                    continue
+
+                # Calculate the information gain from this split
+                gain = info_gain(true_rows, false_rows, current_uncertainty)
+
+                # You actually can use '>' instead of '>=' here
+                # but I wanted the tree to look a certain way for our
+                # toy dataset.
+                if gain >= best_gain:
+                    best_gain, best_question = gain, question
+
+        return best_gain, best_question
+        
+        #######
+        # Demo:
+        # Find the best question to ask first for our toy dataset.
+        best_gain, best_question = find_best_split(training_data)
+        best_question
+        ## output - Is diameter >= 3?
+ 
+ 
+ Now build the Decision tree based on step discussed above recursively at each node.
+ 
+     def build_tree(rows):
+        """Builds the tree.
+
+        Rules of recursion: 1) Believe that it works. 2) Start by checking
+        for the base case (no further information gain). 3) Prepare for
+        giant stack traces.
+        """
+
+        # Try partitioing the dataset on each of the unique attribute,
+        # calculate the information gain,
+        # and return the question that produces the highest gain.
+        gain, question = find_best_split(rows)
+
+        # Base case: no further info gain
+        # Since we can ask no further questions,
+        # we'll return a leaf.
+        if gain == 0:
+            return Leaf(rows)
+
+        # If we reach here, we have found a useful feature / value
+        # to partition on.
+        true_rows, false_rows = partition(rows, question)
+
+        # Recursively build the true branch.
+        true_branch = build_tree(true_rows)
+
+        # Recursively build the false branch.
+        false_branch = build_tree(false_rows)
+
+        # Return a Question node.
+        # This records the best feature / value to ask at this point,
+        # as well as the branches to follow
+        # dependingo on the answer.
+        return Decision_Node(question, true_branch, false_branch)
+        
+ 
