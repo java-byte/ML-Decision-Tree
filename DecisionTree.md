@@ -37,7 +37,7 @@ The dependent variable, Y, is the target variable that we are trying to understa
 
 While making decision tree, at each node of tree we ask different type of questions. Based on the asked question we will calculate the information gain corresponding to it.
 
-Information gain is used to decide which feature to split on at each step in building the tree. Simplicity is best, so we want to keep our tree small. To do so, at each step we should choose the split that results in the purest daughter nodes. A commonly used measure of purity is called information. For each node of the tree, the information value **measures how much “information” a feature gives us about the class. The split with the highest information gain will be taken as the first split and the process will continue until all children nodes are pure, or until the information gain is 0. **
+Information gain is used to decide which feature to split on at each step in building the tree. Simplicity is best, so we want to keep our tree small. To do so, at each step we should choose the split that results in the purest daughter nodes. A commonly used measure of purity is called information. For each node of the tree, the information value **measures how much `information` a feature gives us about the class. The split with the highest information gain will be taken as the first split and the process will continue until all children nodes are pure, or until the information gain is 0.**
 
 ### Asking Question
  
@@ -111,4 +111,43 @@ Pure means, in a selected sample of dataset all data belongs to same class (PURE
 
 #### Impure
 Impure means, data is mixture of different classes.
+
+#### Definition of Gini Impurity
+
+Gini Impurity is a measurement of the likelihood of an incorrect classification of a new instance of a random variable, if that new instance were randomly classified according to the distribution of class labels from the data set.
+
+If our dataset is `Pure` then likelihood of incorrect classification is 0. If our sample is mixture of different classes then likelihood of incorrect classification will be high.
+
+**Example**
+
+        # Demo 1:
+        # Let's look at some example to understand how Gini Impurity works.
+        #
+        # First, we'll look at a dataset with no mixing.
+        no_mixing = [['Apple'],
+                     ['Apple']]
+        # this will return 0
+        gini(no_mixing) ## output=0
+       
+       ## Demo 2:
+       # Now, we'll look at dataset with a 50:50 apples:oranges ratio
+        some_mixing = [['Apple'],
+                       ['Orange']]
+        # this will return 0.5 - meaning, there's a 50% chance of misclassifying
+        # a random example we draw from the dataset.
+        gini(some_mixing) ##output=0.5
+        
+        ## Demo 3:
+        # Now, we'll look at a dataset with many different labels
+        lots_of_mixing = [['Apple'],
+                          ['Orange'],
+                          ['Grape'],
+                          ['Grapefruit'],
+                          ['Blueberry']]
+        # This will return 0.8
+        gini(lots_of_mixing) ##output=0.8
+        #######
+           
+
+ 
 
