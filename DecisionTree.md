@@ -4,7 +4,11 @@ A decision tree is a flowchart-like structure in which each internal node repres
 
 ![FlowDiagram](flowdiagram.png)
 
-Decision tree is one of the predictive modelling approaches used in `statistics`, `data mining` and `machine learning`. Tree models where the target variable can take a discrete set of values are called **classification trees**. Decision trees where the target variable can take continuous values (typically real numbers) are called **regression trees**. Classification And Regression Tree (CART) is general term for this.
+Decision tree is one of the predictive modelling approaches used in `statistics`, `data mining` and `machine learning`.
+
+Basically decision tree is divided into two parts **classification and regression tree**.
+
+Tree models where the target variable can take a discrete set of values are called **classification trees**. Decision trees where the target variable can take continuous values (typically real numbers) are called **regression trees**. Classification And Regression Tree (CART) is general term for this.
 
 Throughout this post i will try to explain using the examples.
 
@@ -29,9 +33,11 @@ The dependent variable, Y, is the target variable that we are trying to understa
      # The last column is the label.
      # The first two columns are features.
 
+#### Approach to make decision tree
+
 While making decision tree, at each node of tree we ask different type of questions. Based on the asked question we will calculate the information gain corresponding to it.
 
-Information gain is used to decide which feature to split on at each step in building the tree. Simplicity is best, so we want to keep our tree small. To do so, at each step we should choose the split that results in the purest daughter nodes. A commonly used measure of purity is called information. For each node of the tree, the information value **represents the expected amount of information that would be needed to specify whether a new instance should be classified yes or no, given that the example reached that node**
+Information gain is used to decide which feature to split on at each step in building the tree. Simplicity is best, so we want to keep our tree small. To do so, at each step we should choose the split that results in the purest daughter nodes. A commonly used measure of purity is called information. For each node of the tree, the information value **measures how much “information” a feature gives us about the class. The split with the highest information gain will be taken as the first split and the process will continue until all children nodes are pure, or until the information gain is 0. **
 
 ### Asking Question
  
