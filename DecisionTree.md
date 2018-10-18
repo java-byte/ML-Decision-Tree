@@ -243,3 +243,34 @@ If our dataset is `Pure` then likelihood of incorrect classification is 0. If ou
         return Decision_Node(question, true_branch, false_branch)
         
  
+ Let's build decision tree based on training data.
+        
+      training_data = [
+                      ['Green', 3, 'Apple'],
+                      ['Yellow', 3, 'Apple'],
+                      ['Red', 1, 'Grape'],
+                      ['Red', 1, 'Grape'],
+                      ['Yellow', 3, 'Lemon'],
+                      ]
+      # Header = ["Color", "diameter", "Label"]
+      # The last column is the label.
+      # The first two columns are features.
+      
+      my_tree = build_tree(training_data)
+      
+      print_tree(my_tree)
+      
+  **Output**
+     
+      Is diameter >= 3?
+      --> True:
+        Is color == Yellow?
+        --> True:
+            Predict {'Lemon': 1, 'Apple': 1}
+        --> False:
+            Predict {'Apple': 1}
+     --> False:
+        Predict {'Grape': 2}
+        
+ 
+      
