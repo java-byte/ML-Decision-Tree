@@ -33,9 +33,11 @@ The dependent variable, Y, is the target variable that we are trying to understa
      # The last column is the label.
      # The first two columns are features.
 
-#### Approach to make decision tree
+### Approach to make decision tree
 
 While making decision tree, at each node of tree we ask different type of questions. Based on the asked question we will calculate the information gain corresponding to it.
+
+#### Information Gain
 
 Information gain is used to decide which feature to split on at each step in building the tree. Simplicity is best, so we want to keep our tree small. To do so, at each step we should choose the split that results in the purest daughter nodes. A commonly used measure of purity is called information. For each node of the tree, the information value **measures how much `information` a feature gives us about the class. The split with the highest information gain will be taken as the first split and the process will continue until all children nodes are pure, or until the information gain is 0.**
 
@@ -102,7 +104,7 @@ Now we will try to Partition the dataset based on asked question. Data will be d
        
 Algorithm for constructing decision tree usually works top-down, by choosing a variable at each step that `best` splits the set of items. Different algorithms use different metrices for measuring `best`.
 
-### Gini Impurity
+## Gini Impurity
 
 First let's understand the meaning of **Pure** and **Impure**.
 
@@ -273,4 +275,6 @@ If our dataset is `Pure` then likelihood of incorrect classification is 0. If ou
         Predict {'Grape': 2}
         
  
-      
+From above output we can see that at each steps data is divided into `True` and `False` rows. This process keep repeated until we reach leaf node where information gain is 0 and further split of data is not possible as nodes are Pure.
+
+From this article i tried to explains basics of decision tree and how basically it works. Hope you like it. Cheers :)
